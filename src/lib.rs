@@ -21,7 +21,7 @@ use syn::{
 ///    /// Common array with public visibility.
 ///    #[allow(unused)]
 ///    pub const ARRAY_COMMON: [u8; _] = [1, 2, 4];
-///    /// Special array with cfg conditional compling.
+///    /// Special array with cfg conditional compiling.
 ///    const ARRAY_WITH_ATTR: [u8; _] = [1, #[cfg(unix)] 2]
 /// }
 /// ```
@@ -105,12 +105,12 @@ impl ConstArray {
             let attrs = match expr {
                 Expr::Array(inner) => inner.attrs,
                 Expr::Assign(inner) => inner.attrs,
-                Expr::AssignOp(inner) => inner.attrs,
+                // Expr::AssignOp(inner) => inner.attrs,
                 Expr::Async(inner) => inner.attrs,
                 Expr::Await(inner) => inner.attrs,
                 Expr::Binary(inner) => inner.attrs,
                 Expr::Block(inner) => inner.attrs,
-                Expr::Box(inner) => inner.attrs,
+                // Expr::Box(inner) => inner.attrs,
                 Expr::Break(inner) => inner.attrs,
                 Expr::Call(inner) => inner.attrs,
                 Expr::Cast(inner) => inner.attrs,
@@ -137,7 +137,7 @@ impl ConstArray {
                 Expr::Try(inner) => inner.attrs,
                 Expr::TryBlock(inner) => inner.attrs,
                 Expr::Tuple(inner) => inner.attrs,
-                Expr::Type(inner) => inner.attrs,
+                // Expr::Type(inner) => inner.attrs,
                 Expr::Unary(inner) => inner.attrs,
                 Expr::Unsafe(inner) => inner.attrs,
                 Expr::While(inner) => inner.attrs,
