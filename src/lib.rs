@@ -30,6 +30,32 @@ pub fn auto_const_array(input: TokenStream) -> TokenStream {
     const_array(input).unwrap_or_else(|e| TokenStream::from(e.to_compile_error()))
 }
 
+/// Declare a new const array without specify length.
+/// It helps when apply conditional compilation to part of a const array.
+/// Similar to [`auto_const_array`], but using attribute macro syntax.
+///
+/// # Syntax
+/// The macro wraps any number of const array declarations(with length `_`).
+///
+/// ```rust
+/// use auto_const_array::auto_const_array_attr as auto_const_array;
+///
+/// /// Common array with public visibility.
+/// #[auto_const_array]
+/// pub const ARRAY_COMMON: [u8; _] = [1, 2, 4];
+/// /// Special array with cfg conditional compiling.
+/// #[auto_const_array]
+/// const ARRAY_WITH_ATTR: [u8; _] = [
+///     1,
+///     #[cfg(unix)]
+///     2,
+/// ];
+/// ```
+#[proc_macro_attribute]
+pub fn auto_const_array_attr(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    const_array(item).unwrap_or_else(|e| TokenStream::from(e.to_compile_error()))
+}
+
 fn const_array(input: TokenStream) -> Result<TokenStream> {
     let parser = Punctuated::<ConstArray, Token![;]>::parse_terminated;
     let args = parser.parse(input)?;
