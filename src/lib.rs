@@ -34,9 +34,6 @@ pub fn auto_const_array(input: TokenStream) -> TokenStream {
 /// It helps when apply conditional compilation to part of a const array.
 /// Similar to [`auto_const_array`], but using attribute macro syntax.
 ///
-/// # Syntax
-/// The macro wraps any number of const array declarations(with length `_`).
-///
 /// ```rust
 /// use auto_const_array::auto_const_array_attr as auto_const_array;
 ///
